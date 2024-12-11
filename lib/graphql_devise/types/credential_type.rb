@@ -3,11 +3,12 @@
 module GraphqlDevise
   module Types
     class CredentialType < BaseType
-      field :access_token, String, null: false
-      field :uid,          String, null: false
-      field :token_type,   String, null: false
-      field :client,       String, null: false
-      field :expiry,       Int,    null: false
+      field :access_token,  String, null: false
+      field :uid,           String, null: false
+      field :token_type,    String, null: false
+      field :client,        String, null: false
+      field :expiry,        Int,    null: false
+      field :authorization, String, null: false
 
       def access_token
         object[DeviseTokenAuth.headers_names[:"access-token"]]
@@ -27,6 +28,10 @@ module GraphqlDevise
 
       def expiry
         object[DeviseTokenAuth.headers_names[:expiry]]
+      end
+
+      def authorization
+        object[DeviseTokenAuth.headers_names[:authorization]]
       end
     end
   end

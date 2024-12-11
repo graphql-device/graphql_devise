@@ -18,7 +18,7 @@ RSpec.describe 'Login Requests' do
             password: "#{password}"
           ) {
             user { email name signInCount }
-            credentials { accessToken uid tokenType client expiry }
+            credentials { accessToken uid tokenType client expiry authorization }
           }
         }
       GRAPHQL
@@ -34,11 +34,12 @@ RSpec.describe 'Login Requests' do
           expect(json_response[:data][:userLogin]).to match(
             user:        { email: user.email, name: user.name, signInCount: 1 },
             credentials: {
-              accessToken: response.headers['access-token'],
-              uid:         response.headers['uid'],
-              tokenType:   response.headers['token-type'],
-              client:      response.headers['client'],
-              expiry:      response.headers['expiry'].to_i
+              accessToken:   response.headers['access-token'],
+              uid:           response.headers['uid'],
+              tokenType:     response.headers['token-type'],
+              client:        response.headers['client'],
+              expiry:        response.headers['expiry'].to_i,
+              authorization: response.headers['Authorization']
             }
           )
           expect(json_response[:errors]).to be_nil
