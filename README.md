@@ -460,6 +460,8 @@ Here is a list of the available mutations and queries assuming your mounted mode
 #### Introspection query
 If you are using the schema plugin, you can require authentication before doing an introspection query by modifying the `public_introspection` option of the plugin. Check the [plugin config section](#mounting-operations-into-your-own-schema) for more information.
 
+If you want to completely disable introspection queries, refer to [Disable Introspection](#disable-introspection)
+
 #### Mutations
 
 Operation | Description | Example
@@ -568,6 +570,12 @@ information you can check [this answer here](https://github.com/lynndylanhurley/
 
 This gem supports the same and should be easier to handle email templates due to the fact we don't override
 standard Devise templates.
+
+### Disable Introspection
+`GraphqlDevise::Schema` extends from `GraphQL::Schema`, which allows it to utilize the `disable_introspection_entry_points` method. By calling this method, you can disable introspection entry points in your schema. You can read more about it
+[here](https://github.com/rmosolgo/graphql-ruby/blob/master/guides/schema/introspection.md#disabling-introspection).
+
+If you are using the schema plugin and prefer to make introspection queries available only to authenticated users, you can do so by modifying the `public_introspection` option of the plugin. Check the [plugin config section](#mounting-operations-into-your-own-schema) for more information.
 
 ## Changelog
 Full list of changes in [CHANGELOG.md](CHANGELOG.md)
